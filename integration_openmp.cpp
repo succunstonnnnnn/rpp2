@@ -99,16 +99,6 @@ void TestResult(double ParallelResult, double SerialResult, const char* methodNa
     }
 }
 
-void DemoThreadIds() {
-    #pragma omp parallel
-    {
-        int myid = omp_get_thread_num();
-        int total = omp_get_num_threads();
-        #pragma omp critical
-        printf("  Thread %d of %d is active\n", myid, total);
-    }
-}
-
 int main(int argc, char* argv[]) {
     double a = 0.0;
     double b = M_PI;
@@ -129,10 +119,6 @@ int main(int argc, char* argv[]) {
     printf("Function: f(x) = sin(x), Interval: [0, pi]\n");
     printf("Number of subintervals N = %d\n", N);
     printf("Exact value: 2.0\n\n");
-
-    printf("Thread identification demo:\n");
-    DemoThreadIds();
-    printf("\n");
 
     double Start, Finish, Duration;
     double Result;

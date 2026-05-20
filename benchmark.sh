@@ -1,6 +1,3 @@
-#!/bin/bash
-# Бенчмарк — сумісний з bash 3.2 (macOS default)
-
 SEQ_SRC="integration_sequential.cpp"
 OMP_SRC="integration_openmp.cpp"
 SEQ_BIN="./integration_sequential"
@@ -15,7 +12,7 @@ for f in "$SEQ_SRC" "$OMP_SRC"; do
     if [ ! -f "$f" ]; then echo "ПОМИЛКА: не знайдено $f"; exit 1; fi
 done
 
-echo "===== Компіляція ====="
+echo "Компіляція"
 $GCC -O2 "$SEQ_SRC" -o "${SEQ_BIN#./}" && echo "  OK: $SEQ_BIN"
 $GCC -O2 -fopenmp "$OMP_SRC" -o "${OMP_BIN#./}" && echo "  OK: $OMP_BIN"
 echo ""
@@ -43,7 +40,7 @@ echo "N,Seq,t=2,t=4,t=8" > "$RECT_CSV"
 echo "N,Seq,t=2,t=4,t=8" > "$TRAP_CSV"
 echo "N,Seq,t=2,t=4,t=8" > "$SIMP_CSV"
 
-echo "===== Бенчмарк (мінімум з $RUNS запусків) ====="
+echo "Бенчмарк (мінімум з $RUNS запусків)"
 echo ""
 
 bench_config() {
@@ -90,7 +87,7 @@ for idx in "${!N_VALUES[@]}"; do
     echo "$LABEL,$seq_simp,$omp2_simp,$omp4_simp,$omp8_simp" >> "$SIMP_CSV"
 done
 
-echo "===== Результати ====="
+echo "Результати"
 echo ""
 echo "Метод прямокутників:"
 column -t -s, "$RECT_CSV"
@@ -100,5 +97,3 @@ column -t -s, "$TRAP_CSV"
 echo ""
 echo "Метод Сімпсона:"
 column -t -s, "$SIMP_CSV"
-echo ""
-echo "CSV збережено у папці $RESULTS_DIR/"
